@@ -99,23 +99,23 @@ newUsername.classList.add('username');
 
 //add structure
 
-entryPoint.append(newCard);
-newCard.append(newImg, newInfo); 
-newInfo.append(newName, newUsername, newLocation, newProfile, newFollowers, newFollowing, newBio);
-newProfile.append(newLink); 
-
 //add content
 
 newImg.src = attr.avatar_url;
 newName.textContent = attr.name;
 newUsername.textContent = attr.login;
 newLocation.textContent = `Location: ${attr.location}`;
-newProfile.textContent = `Profile: ${attr.html_url}`;
-newLink.textContent = attr.html_url;
+newProfile.textContent = `Profile: `;
+newLink.textContent = `${attr.html_url}`;
 newLink.href = attr.html_url;
 newFollowers.textContent = `Followers: ${attr.followers}`;
 newFollowing.textContent = `Following: ${attr.following}`;
 newBio.textContent = `Bio: ${attr.bio}`;
+
+// entryPoint.append(newCard);
+newCard.append(newImg, newInfo); 
+newInfo.append(newName, newUsername, newLocation, newProfile, newFollowers, newFollowing, newBio);
+newProfile.append(newLink); 
 
 return newCard;
 
