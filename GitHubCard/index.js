@@ -15,7 +15,25 @@ entryPoint.appendChild(newCardComplete);
 .catch(error => {
 console.log("The data was not returned", error);
 })
-  
+
+/* --- */
+
+axios
+.get('https://api.github.com/users/ryanmeinzer/followers')
+.then(response => {
+// console.log(response);
+  response.data.map(user => {
+  axios
+  .get(user.url)
+  .then(response => {
+  entryPoint.appendChild(cardMaker(response.data));
+});
+});
+})
+.catch(error => {
+console.log('The data was not returned', error);
+});
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -23,13 +41,9 @@ console.log("The data was not returned", error);
    Skip to Step 3.
 */
 
-
-
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
-
-
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
@@ -42,6 +56,22 @@ console.log("The data was not returned", error);
 */
 
 // const followersArray = [];
+
+axios
+.get('https://api.github.com/users/ryanmeinzer/followers')
+.then(response => {
+// console.log(response);
+  response.data.forEach(user => {
+  axios.get(user.url)
+.then(response => {
+  entryPoint.appendChild(cardMaker(response.data));
+});
+});
+})
+.catch(error => {
+console.log('The data was not returned', error);
+});
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -89,7 +119,7 @@ newUsername.classList.add('username');
 
 entryPoint.append(newCard);
 newCard.append(newImg, newInfo); 
-newInfo.append(newName, newUsername, newLocation, newProfile, newFollowers, newFollowing, newLink, newBio);
+newInfo.append(newName, newUsername, newLocation, newProfile, newFollowers, newFollowing, newBio);
 newProfile.append(newLink); 
 
 //add content
@@ -98,7 +128,7 @@ newImg.src = attr.avatar_url;
 newName.textContent = attr.name;
 newUsername.textContent = attr.login;
 newLocation.textContent = `Location: ${attr.location}`;
-newProfile.textContent = `Profile: `;
+newProfile.textContent = `Profile: ${attr.html_url}`;
 newLink.textContent = attr.html_url;
 newLink.href = attr.html_url;
 newFollowers.textContent = `Followers: ${attr.followers}`;
